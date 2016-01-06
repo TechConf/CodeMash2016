@@ -1,0 +1,1 @@
+Slides and code are available: https://github.com/mgroves/RabbitEasyNetQ
