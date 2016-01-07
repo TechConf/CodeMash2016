@@ -2,6 +2,7 @@ From Power Chords to the power of Models
 ===============================
 
 Ali Kheyrollahi, ASOS - UK
+
 [@aliostad](https://twitter.com/aliostad)
 
 ---
