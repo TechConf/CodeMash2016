@@ -1,0 +1,26 @@
+<div ng-controller="ExampleController">
+  <%= form_for(@example) do |f| %>
+
+    <%= f.label :name %>
+    <%= f.text_field :name, "ng-model" => "example.name" %>
+    <br/>
+
+    <%= f.label :email %>
+    <%= f.text_field :email, "ng-model" => "example.email" %>
+    <br/>
+
+    <%= f.label :gender %>
+    <%= f.radio_button :gender, :male, "ng-model" => "example.gender" %> Male
+    <%= f.radio_button :gender, :female, "ng-model" => "example.gender" %> Female
+    <br />
+
+    <%= f.check_box :agree, "ng-model" => "example.agree" %> <%= f.label :agree %>
+    <br />
+
+    <%= f.submit 'Save', class: 'btn', "ng-click" => "update(example)" %>
+    <%= link_to 'Cancel', examples_path %>
+  <% end %>
+
+  <br />
+  <pre>example = {{example | json}}</pre>
+</div>

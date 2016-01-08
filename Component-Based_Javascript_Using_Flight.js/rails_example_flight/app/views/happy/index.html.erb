@@ -1,0 +1,27 @@
+<h1>List of Bob Ross Episodes</h1>
+
+<div id="happy-controls">
+  <input type="button" class="btn happy-toggle" data-icon="boat" value="Boat">
+  <input type="button" class="btn happy-toggle" data-icon="fire" value="Fire">
+  <input type="button" class="btn happy-toggle" data-icon="tree" value="Tree">
+  <input type="button" class="btn happy-toggle" data-icon="moon" value="Moon">
+  <input type="button" class="btn happy-toggle" data-icon="sun" value="Sun">
+</div>
+<br/>
+
+<div id="happy-list" ></div>
+
+<script id="list-template" type="text/x-template-handlebars">
+  <ul>
+  {{#each items}}
+    <li class="happy-item" data-boat="{{boat}}" data-fire="{{fire}}" data-tree="{{tree}}" data-moon="{{moon}}" data-sun="{{sun}}">
+      {{episode}}: {{title}}
+      <span class="icons"></span>
+    </li>
+  {{/each}}
+  </ul>
+</script>
+
+<script id="icon-template" type="text/x-template-handlebars">
+  <i class="fa {{icon}}"></i>
+</script>

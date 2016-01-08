@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rails Example</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body class="container">
+  <% unless notice.nil? %><p><%= notice %></p> <% end %>
+  <% unless alert.nil?  %><p><%= alert  %></p> <% end %>
+  <%= yield %>
+</body>
+</html>
