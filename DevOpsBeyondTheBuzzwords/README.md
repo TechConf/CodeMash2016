@@ -1,7 +1,6 @@
-= DevOps Beyond the Buzzwords: What it Means to Embrace the DevOps Lifestyle
+# DevOps Beyond the Buzzwords: What it Means to Embrace the DevOps Lifestyle
 
-== Presenter
-
+## Presenter
 * Mark Heckler
 * Pivotal Software, Inc.
 * [Blog](http://www.thehecklers.org)

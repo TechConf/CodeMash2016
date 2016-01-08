@@ -1,7 +1,6 @@
-= IoT to Cloud, the DevOps Way: Development at Web Scale on Web Time
+# IoT to Cloud, the DevOps Way: Development at Web Scale on Web Time
 
-== Presenter
-
+## Presenter
 * Mark Heckler
 * Pivotal Software, Inc.
 * [Blog](http://www.thehecklers.org)
