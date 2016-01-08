@@ -10,7 +10,6 @@
  - ASP.NET GitHub Org: https://github.com/aspnet 
  - ASP.NET Home Repository: https://github.com/aspnet/Home 
  - ASP.NET 5 Docs: http://docs.asp.net 
-
  - Progressive .NET Tutorials 2015 and Recording Videos of My ASP.NET 5 Talks: http://bit.ly/1L64i2o
  - Introduction to ASP.NET 5: http://docs.asp.net/en/latest/conceptual-overview/aspnet.html
  - DNX Overview: http://docs.asp.net/en/latest/dnx/overview.html 
