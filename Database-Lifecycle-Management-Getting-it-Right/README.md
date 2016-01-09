@@ -17,3 +17,10 @@
   - [DLM S2 – Automated Version Control](http://www.red-gate.com/blog/database-version-control)
   - [DLM S3 – Continuous Integration](http://www.red-gate.com/blog/database-continuous-integration)
   - [DLM S4 – Release Management](http://www.red-gate.com/blog/database-release-management)
+
+
+## Contact
+
+You can see my blog at http://tugberkugurlu.com
+
+Follow me on Twitter at http://twitter.com/tourismgeek
