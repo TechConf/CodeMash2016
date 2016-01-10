@@ -1,0 +1,3 @@
+Functional programming is reemerging in popularity but can be difficult for you to use at your day job. At the same time Automated Browser Testing is very practical and has become something that every developer can at least dip their toe in. Canopy, a simple framework in F# on top of selenium for writing UI automation and tests, can be a great way to start learning a functional language. This talk will explore some of the basic functional concepts targeting those are new to functional programming and show how they can be practically used to automate your browser testing.
+
+http://www.slideshare.net/bryanarendt/functional-browser-automation-testing-for-newbs
