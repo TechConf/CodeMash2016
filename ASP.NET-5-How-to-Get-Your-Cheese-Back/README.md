@@ -20,3 +20,9 @@
  - ASP.NET 5 Community Standups: http://bit.ly/1KKYI37 
  - My ASP.NET 5 Posts: http://www.tugberkugurlu.com/tags/asp-net-5 and http://www.tugberkugurlu.com/tags/asp-net-vnext 
  - ASP.NET MVP Summit Sessions: https://channel9.msdn.com/Events/ASPNET-Events/ASPNET-Fall-Sessions 
+
+## Contact
+
+You can see my blog at http://tugberkugurlu.com
+
+Follow me on Twitter at http://twitter.com/tourismgeek
