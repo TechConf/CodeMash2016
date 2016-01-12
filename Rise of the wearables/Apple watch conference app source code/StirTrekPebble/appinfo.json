@@ -1,0 +1,32 @@
+{
+  "uuid": “Unique UUID here”,
+  "shortName": "StirTrek",
+  "longName": "StirTrek Conference",
+  "companyName": " Your Company Name  ",
+  "versionCode": 1,
+  "versionLabel": "1.0",
+  "sdkVersion": "3",
+  "targetPlatforms": ["aplite", "basalt"],
+  "watchapp": {
+    "watchface": true
+  },
+  "appKeys": {
+ "VALUE_1": 0,
+ "VALUE_2": 1
+	},
+  "resources": {
+    "media": [
+{
+    "type": "font",
+    "name": "FONT_PERFECT_DOS_48",
+    "file": "fonts/perfect-dos-vga.ttf",
+    "compatibility":"2.7"
+  },
+{
+  "type": "png",
+  "name": "IMAGE_BACKGROUND",
+  "file": "images/background.png"
+}
+	]
+  }
+}
