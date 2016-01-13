@@ -1,0 +1,26 @@
+<div class="example-form">
+  <%= form_for(@example) do |f| %>
+
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <br/>
+
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+    <br/>
+
+    <%= f.label :gender %>
+    <%= f.radio_button :gender, :male %> Male
+    <%= f.radio_button :gender, :female %> Female
+    <br />
+
+    <%= f.check_box :agree %> <%= f.label :agree %>
+    <br />
+
+    <%= f.submit 'Save', class: 'btn' %>
+    <%= link_to 'Cancel', examples_path %>
+  <% end %>
+
+  <br />
+  <pre>example = <span class="example-summary"></pre>
+</div>

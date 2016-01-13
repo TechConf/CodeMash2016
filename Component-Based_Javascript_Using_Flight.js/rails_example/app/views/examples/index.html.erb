@@ -1,0 +1,31 @@
+<div>
+  <h1>Examples</h1>
+
+  <input type="text" name="filter_text" ng-model="filter.text">
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Gender</th>
+        <th>Agree</th>
+        <th colspan="2"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @examples.each do |example| %>
+        <tr>
+          <td><%= example.name %></td>
+          <td><%= example.email %></td>
+          <td><%= example.gender %></td>
+          <td><%= example.agree %></td>
+          <td><%= link_to 'Edit', edit_example_path(example), class: 'btn btn-success' %></td>
+          <td><%= link_to 'Destroy', example, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= link_to 'Add', new_example_path, class: 'btn btn-primary' %>
+</div>
