@@ -1,0 +1,1144 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Great Galloping Cuckoos</title>
+
+		<meta name="description" content="New Algorithms">
+		<meta name="author" content="Matt Williams">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/beige.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+<section>
+<markdeep># Great Galloping Cuckoos
+## Algorithms Faster than $log(n)$
+### [Codemash](http://codemash.org) v2.0.1.6 - 8 January 2016
+
+</markdeep></section><section><markdeep>
+## Matt Williams
+<div style="text-align:center;float:left;">
+<img src="images/ottercat.png">
+</div>
+
+[matt@matthewkwilliams.com](mailto:matt@matthewkwilliams.com) 
+
+[@matt_k_williams](http://twitter.com/matt_k_williams) 
+
+[http://matthewkwilliams.com](http://matthewkwilliams.com)
+[http://20slides.com](http://20slides.com)
+
+[http://github.com/aetherical](http://github.com/aetherical)
+
+Note
+:  The lovely picture is by my daughter Althea
+
+</markdeep></section><section><markdeep>
+## Background aka Why am I Up Here?
+
+<img style="align: left;" src="images/raspberrbeepi.png" />
+
+* Raspberry Pi Addict
+* Search for "real" work for Pi's
+* In the process I've discovered lots of new and nifty algorithms
+
+
+</markdeep></section><section><markdeep>
+## Disclaimers
+
+1. I am not a Mathmetician
+2. I am not a Chemist (this will make sense later)
+3. I am not an expert
+4. I have become passionate about this topic
+
+</markdeep></section><section><markdeep>
+## Good Algorithms Matter
+
+> The real reason behind choosing good algorithms to solve a problem
+> is that the good ones either break the problem into smaller problems
+> or are myopic; focusing only on the steps needed to reach an
+> answer. All else is superfluous.
+
+</markdeep></section><section><markdeep>
+## No Silver Bullet
+
+<a title="silver bullet" href="http://flickr.com/photos/eschipul/4160817135"><img src="images/4160817135_a925e3f61f.jpg" /></a><br /><small><a title="silver bullet" href="http://flickr.com/photos/eschipul/4160817135">flickr photo</a> shared by <a href="http://flickr.com/people/eschipul">eschipul</a> under a <a href="http://creativecommons.org/licenses/by-sa/2.0/">Creative Commons ( BY-SA ) license</a> </small>
+</markdeep></section><section><markdeep>
+## When all you have is a hammer.....
+
+<a title="When all you have is a hammer everything looks like a nail" href="http://flickr.com/photos/screamingmonkey/9329687479"><img src="images/9329687479_af5400b0f0.jpg" /></a><br /><small><a title="When all you have is a hammer everything looks like a nail" href="http://flickr.com/photos/screamingmonkey/9329687479">flickr photo</a> shared by <a href="http://flickr.com/people/screamingmonkey">screaming_monkey</a> under a <a href="http://creativecommons.org/licenses/by-sa/2.0/">Creative Commons ( BY-SA ) license</a> </small>
+
+</markdeep></section><section><markdeep>
+## Real World&trade; Considerations
+
+Each algorithm has its "sweet spot", but the considerations tend to be among the following:
+
+* Space
+* Runtime
+* Data Access
+
+</markdeep></section><section><markdeep>
+
+<img src="images/1357573576_bill-and-ted-socrates.jpg" />
+> Know thy data
+> -- "Not Socrates"
+
+</markdeep></section><section><markdeep>
+
+<img src="images/1357573576_bill-and-ted-socrates.jpg" />
+
+> Like sand through the hourglass, so is the data of our lives
+> -- Also "Not Socrates"
+</markdeep></section><section><markdeep>
+## The Big $O$
+
+ - $O()$ refers to the complexity of an algorithm.
+ - You can also think of it in terms of the number of cycles/comparisons/steps to complete its task.
+ 
+</markdeep></section><section><markdeep>
+
+## $O(n)$
+### Linear Time
+
+Size | Cycles
+----:|---------:
+1    | 1
+2    | 2
+10   | 10
+100  | 100
+1000 | 1000
+
+</markdeep></section><section><markdeep>
+## $O(n^2)$
+## Quadratic Time
+
+Size | Cycles
+----:|---------:
+1    | 1
+2    | 4
+10   | 100
+100  | 10000
+1000 | 1000000
+
+</markdeep></section><section><markdeep>
+## $O(nlog(n))$
+
+Size | Cycles
+----:|----------:
+1 | 0
+2 | 1
+10 | 23
+100 | 460
+1000 | 6907
+
+</markdeep></section><section><markdeep>
+## $O(log(n))$
+### Logarithmic Time
+
+Size | Cycles
+----:|----------:
+1    | 0
+2    | 1
+10   | 3
+100  | 7
+1000 | 10
+
+</markdeep></section><section><markdeep>
+## $O(log(i))$
+### Logarithmic Time
+
+Size | Cycles
+----:|----------:
+1    | 1
+2    | 1
+10   | 1
+100  | 2
+1000 | 3
+
+</markdeep></section><section><markdeep>
+## $O(log(log(n)))$
+### "Logalog"
+<img style="float: left" src="images/Log-a-logTVshow.JPG" />
+
+Size | Cycles
+----:|------------:
+100000 | 2
+1000000 | 2
+10000000 | 2
+100000000 | 2
+1000000000 | 3
+
+
+</markdeep></section><section><markdeep>
+## $O(1)$
+### Constant Time
+
+Size | Cycles
+----:|---------:
+1    | 1
+2    | 1
+10   | 1
+100  | 1
+1000 | 1
+
+</markdeep></section><section><markdeep>
+## Searches
+
+Looking for 812...
+<diagram>
+.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.
+|  1  |  22 |  47 | 135 | 239 | 333 | 497 | 764 | 799 | 812 | 876 | 931 |
+'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'
+</diagram>
+
+</markdeep></section><section><markdeep>
+## Linear
+
+<diagram>
+.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.
+|  1  |  22 |  47 | 135 | 239 | 333 | 497 | 764 | 799 | 812 | 876 | 931 |
+'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'
+   ^
+   |
+</diagram>
+
+
+</markdeep></section><section><markdeep>
+## Linear
+
+<diagram>
+.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.
+|  1  |  22 |  47 | 135 | 239 | 333 | 497 | 764 | 799 | 812 | 876 | 931 |
+'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'
+         ^
+         |
+</diagram>
+
+
+</markdeep></section><section><markdeep>
+## Linear
+
+<diagram>
+.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.
+|  1  |  22 |  47 | 135 | 239 | 333 | 497 | 764 | 799 | 812 | 876 | 931 |
+'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'
+               ^
+               |
+</diagram>
+
+
+</markdeep></section><section><markdeep>
+## Linear
+
+<diagram>
+.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.
+|  1  |  22 |  47 | 135 | 239 | 333 | 497 | 764 | 799 | 812 | 876 | 931 |
+'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'
+                     ^
+                     |
+</diagram>
+
+
+</markdeep></section><section><markdeep>
+## Linear
+
+<diagram>
+.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.
+|  1  |  22 |  47 | 135 | 239 | 333 | 497 | 764 | 799 | 812 | 876 | 931 |
+'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'
+                           ^
+                           |
+</diagram>
+
+
+</markdeep></section><section><markdeep>
+## Linear
+
+<diagram>
+.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.
+|  1  |  22 |  47 | 135 | 239 | 333 | 497 | 764 | 799 | 812 | 876 | 931 |
+'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'
+                                 ^
+                                 |
+</diagram>
+
+
+</markdeep></section><section><markdeep>
+## Linear
+
+<diagram>
+.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.
+|  1  |  22 |  47 | 135 | 239 | 333 | 497 | 764 | 799 | 812 | 876 | 931 |
+'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'
+                                       ^
+                                       |
+</diagram>
+
+
+</markdeep></section><section><markdeep>
+## Linear
+
+<diagram>
+.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.
+|  1  |  22 |  47 | 135 | 239 | 333 | 497 | 764 | 799 | 812 | 876 | 931 |
+'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'
+                                             ^
+                                             |
+</diagram>
+
+
+</markdeep></section><section><markdeep>
+## Linear
+
+<diagram>
+.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.
+|  1  |  22 |  47 | 135 | 239 | 333 | 497 | 764 | 799 | 812 | 876 | 931 |
+'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'
+                                                   ^
+                                                   |
+</diagram>
+
+
+</markdeep></section><section><markdeep>
+## Linear
+
+<diagram>
+.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.
+|  1  |  22 |  47 | 135 | 239 | 333 | 497 | 764 | 799 | 812 | 876 | 931 |
+'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'
+                                                         ^
+                                                         |
+</diagram>
+
+
+</markdeep></section><section><markdeep>
+## Binary
+
+<diagram>
+.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.
+|  1  |  22 |  47 | 135 | 239 | 333 | 497 | 764 | 799 | 812 | 876 | 931 |
+'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'
+                                 ^
+                                 |
+</diagram>
+
+
+</markdeep></section><section><markdeep>
+## Binary
+
+<diagram>
+.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.
+|  1  |  22 |  47 | 135 | 239 | 333 | 497 | 764 | 799 | 812 | 876 | 931 |
+'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'
+                                                   ^
+                                                   |
+</diagram>
+
+
+</markdeep></section><section><markdeep>
+## Binary
+
+<diagram>
+.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.
+|  1  |  22 |  47 | 135 | 239 | 333 | 497 | 764 | 799 | 812 | 876 | 931 |
+'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'
+                                                               ^
+                                                               |
+</diagram>
+
+
+</markdeep></section><section><markdeep>
+## Binary
+
+<diagram>
+.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.
+|  1  |  22 |  47 | 135 | 239 | 333 | 497 | 764 | 799 | 812 | 876 | 931 |
+'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'
+                                                         ^
+                                                         |
+</diagram>
+
+
+</markdeep></section><section><markdeep>
+## Galloping Search
+
+- First published in 1976!!!!
+- Sliding Window
+- Good for cases where
+  - The target is at beginning or end
+  - The bounds of the search space are not closed (like log file)
+- Approaches $O(log(i))$
+
+</markdeep></section><section><markdeep>
+## Galloping Search
+
+First window is $2^1$ long.
+
+<diagram>
+.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.
+|  1  |  22 |  47 | 135 | 239 | 333 | 497 | 764 | 799 | 812 | 876 | 931 |
+'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'
+   ^     ^
+   |     |
+   '-----'
+</diagram>
+
+
+</markdeep></section><section><markdeep>
+## Galloping Search
+
+Second window is $2^2$ long.
+<diagram>
+.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.
+|  1  |  22 |  47 | 135 | 239 | 333 | 497 | 764 | 799 | 812 | 876 | 931 |
+'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'
+               ^                 ^
+               |                 |
+               '-----------------'
+</diagram>
+
+
+</markdeep></section><section><markdeep>
+## Galloping Search
+
+Third window is $2^3$ (or to the end of the array) wide. When the
+proper window is found, then do a binary search on the window.
+
+<diagram>
+.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.
+|  1  |  22 |  47 | 135 | 239 | 333 | 497 | 764 | 799 | 812 | 876 | 931 |
+'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'
+                                       ^                             ^
+                                       |                             |
+                                       '-----------------------------'
+</diagram>
+</markdeep></section><section><markdeep>
+## Where it Beats Binary Search
+
+ - If 22 is the target, binary search takes 3 checks. Galloping search finds it on a window boundary.
+
+<diagram>
+      *                            * Galloping
+      |                            o Binary
+   .-----.
+   |     |
+   v     v
+.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.
+|  1  |  22 |  47 | 135 | 239 | 333 | 497 | 764 | 799 | 812 | 876 | 931 |
+'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'
+         ^     ^                 ^       
+         |     |                 |
+         o     o                 o
+         3     2                 1 
+</diagram>
+</markdeep></section><section><markdeep>
+## Where it Beats Binary Search
+
+ - If looking for 13, then binary search takes 4 checks to find it isn't a match. Galloping finds it isn't in the array immediately.
+<diagram>
+      *                            * Galloping
+      |                            o Binary
+   .--+--.
+   |     |
+   v     v
+.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.
+|  1  |  22 |  47 | 135 | 239 | 333 | 497 | 764 | 799 | 812 | 876 | 931 |
+'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'
+   ^     ^     ^                 ^       
+   |     |     |                 |
+   o     o     o                 o
+   4     3     2                 1 
+</diagram>
+
+
+</markdeep></section><section><markdeep>
+## Variants on Galloping Search
+
+ - Start at other end
+ - Trot -- step grows linearly (1,2,3,...) so that the indexes are
+   (1,3,6,10,15,...). Once the value is overshot, then hone in with
+   binary search. $O(\sqrt n)$
+
+</markdeep></section><section><markdeep>
+## Interpolation Search
+
+<img src="images/interpolated.jpg" />
+
+</markdeep></section><section><markdeep>
+## Interpolation Search
+
+* Similar to how we look up a word in a dictionary.
+  * Instead of splitting in $1/2$ each time, make a guess where it should be in range of values
+* Assumes an uniform distribution of points
+* Approaches $O(log(log(n)))$
+
+</markdeep></section><section><markdeep>
+## Interpolation Search
+### Predicted Location
+
+$(seeking/max)/size$
+
+
+</markdeep></section><section><markdeep>
+## Interpolation Search
+
+First check point: $(812 / 931) * 12 = 10$
+
+<diagram>
+.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.
+|  1  |  22 |  47 | 135 | 239 | 333 | 497 | 764 | 799 | 812 | 876 | 931 |
+'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'
+                                                         ^
+                                                         |
+</diagram>
+
+</markdeep></section><section><markdeep>
+## Search Summary
+
+Searching for 812
+
+Algorithm | # of Iterations
+----------|---------------:
+Linear    | 10
+Binary    | 4
+Galloping | 4
+Interpolation | 1
+
+</markdeep></section><section><markdeep>
+> "What the hell is this monstrosity? And why the hell did he name it corned__beef?"
+> 
+> "Jerry says the name is probably some kind of rotten pun. What does it do?"
+> 
+> "Basically it takes the value of the characters of a demon's name, multiplies them by a number, adds another number and then divides the result by 65,353. Then it uses that result as a subscript in some kind of an array." She shook her head again. "Why 65,353? Jesus! You know, if this guy doesn't come back we may never understand some of this stuff." -- [The Wizardry Compiled by Rick Cook](http://www.baenebooks.com/showproduct.aspx?ProductID=1632&SEName=the-wizardry-compiled)
+
+</markdeep></section><section><markdeep>
+Hash
+: plural hashes
+
+  1. Food, especially meat and potatoes, chopped and mixed together. 
+  2. A confused mess.  
+  3. The # symbol (octothorpe, pound).
+  4. (computing) The result generated by a hash function.
+
+<a title="Corned beef hash at Lori's Diner" href="http://flickr.com/photos/ruthanddave/13859407895"><img src="images/13859407895_3e7a485704.jpg" /></a><br /><small><a title="Corned beef hash at Lori's Diner" href="http://flickr.com/photos/ruthanddave/13859407895">flickr photo</a> shared by <a href="http://flickr.com/people/ruthanddave">Ruth and Dave</a> under a <a href="http://creativecommons.org/licenses/by/2.0/">Creative Commons ( BY ) license</a> </small>
+</markdeep></section><section><markdeep>
+## Hash
+
+* Used for sparsely populated universes
+* Quick lookup of values
+* Often implemented with a space the size of a (largeish) prime. 65353 is a large prime near the maximum size of a 16 bit unsigned Integer.
+
+</markdeep></section><section><markdeep>
+## Hash
+
+<diagram>
+.-----.
+|     |
++-----+
+|     |
++-----+
+|     |
++-----+
+|     |
++-----+
+|     |
+'-----'
+</diagram>
+</markdeep></section><section><markdeep>
+## Hash
+
+Hashing function maps entity to limited space in hash
+
+$(CRC(entity) modulus ARRAYLENGTH)$
+<diagram>
+.-----.
+|     |
++-----+
+|  5  |
++-----+
+|     |
++-----+
+|  9  |
++-----+
+|     |
+'-----'
+</diagram>
+</markdeep></section><section><markdeep>
+## Hash Collision
+
+Try to insert 23; but it collides with 5.
+<diagram>
+.-----.
+|     |
++-----+
+|  5  |
++-----+
+|     |
++-----+
+|  9  |
++-----+
+|     |
+'-----'
+</diagram>
+</markdeep></section><section><markdeep>
+
+<a title="" href="http://flickr.com/photos/dino_kuznik/8453807196"><img src="images/car-crash.jpg" /></a><br /><small><a title="" href="http://flickr.com/photos/dino_kuznik/8453807196">flickr photo</a> shared by <a href="http://flickr.com/people/dino_kuznik">Dino Kuznik</a> under a <a href="http://creativecommons.org/licenses/by/2.0/">Creative Commons ( BY ) license</a> </small>
+
+</markdeep></section><section><markdeep>
+## Handling Collisions
+
+* Rehash with larger hash table
+* Buckets
+
+</markdeep></section><section><markdeep>
+## Hash: Bucket Hash
+<diagram>
+.-----.
+|     |
++-----+   .-----.
+|  5  +-->|  23 |
++-----+   '-----'
+|     |
++-----+
+|  9  |
++-----+
+|     |
+'-----'
+</diagram>
+</markdeep></section><section><markdeep>
+## Hash: Bucket Hash
+<diagram>
+.-----.
+|  A  |
++-----+   .-----.   .-----.
+|  5  +-->|  23 +-->|  72 |
++-----+   '-----'   '-----'
+|     |
++-----+   .-----.   .-----.   .-----.
+|  9  +-->| 101 +-->| bee +-->|  X  |
++-----+   '-----'   '-----'   '-----'
+|  b  |
+'-----'
+</diagram>
+</markdeep></section><section><markdeep>
+<img src="images/bukkit.jpg" />
+
+</markdeep></section><section><markdeep>
+## Cuckoo Hash
+
+<img src="images/eviction1.jpg" />
+
+<small>A common cuckoo chick pushes one of its host’s eggs out of the nest. Detail of figure 1 from [Anderson et al. (2009)](http://dx.doi.org/10.1371/journal.pone.0007725)</small>
+</markdeep></section><section><markdeep>
+## Cuckoo Hash
+
+<img src="images/eviction.png" />
+
+<small>A common cuckoo chick pushes one of its host’s eggs out of the nest. Detail of figure 1 from [Anderson et al. (2009)](http://dx.doi.org/10.1371/journal.pone.0007725)</small>
+</markdeep></section><section><markdeep>
+## Cuckoo Hash
+
+Trying to insert 23 again, it collides with 5
+
+<diagram>
+.-----.          .-----.
+|     |          |     |
++-----+          +-----+
+|  5  |          |     |
++-----+          +-----+
+|     |          |     |
++-----+          +-----+
+|  9  |          |     |
++-----+          +-----+
+|     |          |     |
+'-----'          '-----'
+</diagram>
+</markdeep></section><section><markdeep>
+## Evict 5
+
+Each hash has a separate hashing function
+<diagram>
+.-----.          .-----.
+|     |          |     |
++-----+          +-----+
+|  23 +----+     |     |
++-----+    |     +-----+
+|     |    |     |     |
++-----+    |     +-----+
+|  9  |    +---->+  5  |
++-----+          +-----+
+|     |          |     |
+'-----'          '-----'
+</diagram>
+</markdeep></section><section><markdeep>
+## Time Passes
+<diagram>
+.-----.          .-----.
+|     |          |  M  |
++-----+          +-----+
+|  23 |          |  X  |
++-----+          +-----+
+|  B  |          |     |
++-----+          +-----+
+|  9  |          |  5  |
++-----+          +-----+
+|     |          |     |
+'-----'          '-----'
+</diagram>
+</markdeep></section><section><markdeep>
+## Multiple Evictions
+
+Adding 101, collides with B &amp; B collides with X
+
+<diagram>
+.-----.          .-----.
+|     |          |  M  |
++-----+          +-----+
+|  23 |          |  X  |
++-----+          +-----+
+|  B  |          |     |
++-----+          +-----+
+|  9  |          |  5  |
++-----+          +-----+
+|     |          |     |
+'-----'          '-----'
+</diagram>
+</markdeep></section><section><markdeep>
+## Multiple Evictions
+
+<diagram>
+.-----.          .-----.
+|     |          |  M  |
++-----+          +-----+
+|  23 | +------->+  B  +--+
++-----+ |        +-----+  |
+| 101 +-+        |     |  |
++-----+          +-----+  |
+|  9  |          |  5  |  |
++-----+          +-----+  |
+|  X  +<-+       |     |  |
+'-----'  |       '-----'  |
+         +----------------+
+</diagram>
+</markdeep></section><section><markdeep>
+## Advantages of Cuckoo Hash
+
+ * Approaches $O(1)$ for inserts
+ * $O(1)$ for lookups
+
+</markdeep></section><section><markdeep>
+## Limitations of Cuckoo Hash
+
+* Needs a certain amount of empty space; if not an eviction cycle can occur
+* May need to resize &amp; rehash to keep evictions from looping
+
+</markdeep></section><section><markdeep>
+<img src="images/the-empire-strikes-back-6071.png" />
+
+> Obi-Wan: "That Hash is our only hope."
+>
+> Yoda: "No.... there is another."
+</markdeep></section><section><markdeep>
+
+<a title="Peacock wooing peahen" href="http://flickr.com/photos/toasty/2166137862"><img src="images/2166137862_bd8a0c1e9d.jpg" /></a><br /><small><a title="Peacock wooing peahen" href="http://flickr.com/photos/toasty/2166137862">flickr photo</a> shared by <a href="http://flickr.com/people/toasty">ToastyKen</a> under a <a href="http://creativecommons.org/licenses/by/2.0/">Creative Commons ( BY ) license</a> </small>
+
+</markdeep></section><section><markdeep>
+## Peacock Hash
+
+* Handles collisions by adding extra smaller hashes
+* Originally devised for network routers to store IP/Mac Addresses
+* Realtime, constant time
+
+</markdeep></section><section><markdeep>
+## Peacock Hash
+
+<diagram>
+.-----.          
+|     |          
++-----+          .-----.
+|  23 |          |  X  |
++-----+          +-----+        .-----.
+|  B  |          |     |        |  M  |
++-----+          +-----+        '-----'
+|  9  |          |  5  |
++-----+          '-----'
+|     |          
+'-----'          
+</diagram>
+
+</markdeep></section><section><markdeep>
+## Sets
+
+</markdeep></section><section><markdeep>
+## Unordered Set
+
+* Can be implemented as a list or as a hash
+* Inserts are cheap; retrievals may not be
+
+<diagram>
+
+           .-.
+        .-+   |
+    .--+    5  '--. 
+   | X             |
+  .+    A     Z  3 +.
+ |   Pi              |
+  '+      cat  2.7 +'
+   | 99            |
+    '--+   101 .--' 
+        '-+   |
+           '-'
+
+</diagram>
+</markdeep></section><section><markdeep>
+<img src="images/there-can-be-only-one-quote-2.jpg" />
+</markdeep></section><section><markdeep>
+## Ordered Sets
+
+* Elements stored sorted; inserts can be expensive
+
+<diagram>
+
+.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.-----.
+|  1  |  22 |  47 | 135 | 239 | 333 | 497 | 764 | 799 | 812 | 876 | 931 |
+'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'-----'
+
+</diagram>
+</markdeep></section><section><markdeep>
+## Stored as Tree
+<diagram>
+
+                                .---. 
+                               | 333 |
+                                '---'
+                               /     \
+                              /       \
+                             /         \
+                            /           \
+                        .---.            .---.
+                       |  47 |          | 764 |
+                        '---'            '---'
+                       /     \           /    \
+                      /       \         /      \
+                 .---.         .---.   .---.    .---. 
+                |  22 |       | 135 | | 497 |  | 812 |
+                 '---'         '---'   '---'    '---'
+</diagram>
+</markdeep></section><section><markdeep>
+## Set Intersection
+
+<img src="images/diagramme-de-venn-400px.png" />
+
+</markdeep></section><section><markdeep>
+## Set Intersection
+
+* Surveyed implementations are $O(n)$ for intersection
+  * Ruby
+  * Java
+  * Go
+
+</markdeep></section><section><markdeep>
+<img src="images/better-way.jpg" />
+</markdeep></section><section><markdeep>
+## Galloping Intersection
+
+</markdeep></section><section><markdeep>
+## Comparisons of Set Intersections
+
+<small>Excerpted from [Faster Adaptive Set Intersections for Text Searching](http://www.cs.toronto.edu/~tl/papers/wea06.pdf)</small>
+
+Algorithm  | # of comparisons
+-----------|----------------:
+Sequential | 119479075
+Adaptive   | 83326341
+Small Adaptive | 68706234
+Interpolation Sequential | 55275738
+Interpolation Adaptive | 58558408
+
+
+</markdeep></section><section><markdeep>
+## Comparisons of Set Intersections
+
+<small>Excerpted from [Faster Adaptive Set Intersections for Text Searching](http://www.cs.toronto.edu/~tl/papers/wea06.pdf)</small>
+
+Algorithm  | # of comparisons
+-----------|----------------:
+Sequential | 119479075
+Interpolation Small Adaptive | 44525318
+Extrapolation Small Adaptive | 50018852
+Extrapolate Many Small Adaptive | 44087712
+Extrapolate Ahead Small Adaptive | 43930174
+
+</markdeep></section><section><markdeep>
+## Case Study
+
+* Search for Real Work&trade; for my Pi Cluster
+* Pi 2B
+  * 4 Cores / 900 Mhz
+  * 1G Ram
+  * I/O on USB 2 Bus (480 MHz)
+
+</markdeep></section><section><markdeep>
+## Case Study
+
+* Substructure Search
+* PubChem from NIH
+  * 150GB compressed download
+	* Uncompressed, 25K substances is 120MB; whole ~3TB
+  * ~69 Million substances
+  
+
+</markdeep></section><section><markdeep>
+## Smiles
+
+<img style="float: left;" src="images/131px-Benzene-aromatic-3D-balls.png" />
+
+* Text Description of Chemical Structures
+  * C1CCCCC1 is a benzene ring
+* Typically Hydrogen is left out
+* Can be more than one way to describe the same structure
+
+<small>"<a href="https://commons.wikimedia.org/wiki/File:Benzene-aromatic-3D-balls.png#/media/File:Benzene-aromatic-3D-balls.png">Benzene-aromatic-3D-balls</a>" by <a href="//commons.wikimedia.org/wiki/User:Benjah-bmm27" title="User:Benjah-bmm27">Benjah-bmm27</a> - <span class="int-own-work" xml:lang="en" lang="en">Own work</span>. Licensed under Public Domain via <a href="https://commons.wikimedia.org/wiki/">Commons</a>.</small>
+
+</markdeep></section><section><markdeep>
+## Naive Solution
+
+> SMILES is text.
+> What do we use to search text?
+
+</markdeep></section><section><markdeep>
+
+<img src="images/O4V4exh.jpg" />
+
+<small> Image by [EpicBusinessman](https://www.reddit.com/user/EpicBusinessman); from [I drew this GREP thing and kinda forgot about it.](https://www.reddit.com/r/gamegrumps/comments/1yffou/i_drew_this_grep_thing_and_kinda_forgot_about_it/)
+</small>
+
+</markdeep></section><section><markdeep>
+## Naive Solution
+
+* 5 Pi 2B, searching a subset of data
+  * ID, Smiles, Name
+* Docker Swarm to distribute workload
+
+</markdeep></section><section><markdeep>
+## Naive Solution
+
+Structure | Results | Time
+----------|--------:|-----:
+C1CCCCC1=O | ~2500 | 5s
+C1CCCCC1O | ~17500 | 15s
+
+</markdeep></section><section><markdeep>
+## Fingerprints
+
+* Pubchem has a defined bitmap to describe a molecule
+  * 880 bits wide
+  * Has &gt;2 Carbon, &gt;4 Carbon, Boron, A ring
+
+</markdeep></section><section><markdeep>
+## Lightbulb
+
+* SMILES can be converted to Fingerprint with Chemistry Dev Kit
+* If I create sets of substances which have a particular bit set, I
+  can take the intersections of those sets to find the substances
+  which match the fingerprint.
+
+</markdeep></section><section><markdeep>
+## Sets
+
+* 810 sets, one for each bit in the bitmap
+* One file per bit in bitmap containing a list of substances which have the bit set.
+* Using unsigned 32bit ints, the sets are anywhere from 4 bytes to 225MB in size.
+  * Median 9.3M (2326026 substances)
+  * Average 40M  
+* 33GB total
+
+</markdeep></section><section><markdeep>
+## Optimizations
+
+Memoization FTW!
+: If I've solved it once, why solve it again?
+
+</markdeep></section><section><markdeep>
+## Optimizations
+
+* Start from the smallest set and compare it with other sets
+* In cases where the majority of the substances have this property, consider inverting the set -- checking against the substances which don't have the property
+
+</markdeep></section><section><markdeep>
+## If it's a bitmap... why not use bitmap tools
+
+* In order to fit the universe, 10000 x 10000 1 bit PNG
+* 12K to 6.8M
+  * Median 1.7M
+  * Average 2.4M
+
+</markdeep></section><section><markdeep>
+## Bitmaps
+<img src="images/000-thm.png" /> <img src="images/003-thm.png" /> <img src="images/013-thm.png" /> <img src="images/016-thm.png" /> <img src="images/024-thm.png" /> <img src="images/178-thm.png" /> <img src="images/284-thm.png" /> <img src="images/301-thm.png" /> <img src="images/332-thm.png" />
+
+* ImageMagick on a 3.5 GHz box requires 10s/image intersection using a single core.
+  * `convert FILE1 FILE2 -compose Darken -composite out.png`
+
+* Using 5 cores can do 30/minute
+* Pre-Calculating all of the paths will take ~20 years.
+
+</markdeep></section><section><markdeep>
+# Demo
+
+</markdeep></section><section><markdeep>
+## Credits
+
+- Presentation created with Reveal.js
+- Markdown and Diagram rendering via Markdeep
+
+</markdeep></section><section><markdeep>
+## Resources: General Topics
+- [Big O notation](https://en.wikipedia.org/wiki/Big_O_notation)
+- [SIMD](https://en.wikipedia.org/wiki/SIMD)
+
+</markdeep></section><section><markdeep>
+## Resources: Bitmaps
+- [Better bitmap performance with Roaring bitmaps](http://arxiv.org/pdf/1402.6407v9.pdf)
+- [A General SIMD-based Approach to Accelerating Compression Algorithms](http://arxiv.org/abs/1502.01916)
+- [Roaring Bitmap](https://github.com/lemire/RoaringBitmap)
+
+</markdeep></section><section><markdeep>
+## Resources: Cuckoos
+- [Cuckoo Hashing Visualization](http://www.lkozma.net/cuckoo_hashing_visualization/)
+- [Cuckoo Hashing](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.25.4189&rep=rep1&type=pdf) (the original paper)
+- [cuckoo - GoDoc](https://godoc.org/github.com/tildeleb/cuckoo) (go library)
+- [garethm/cuckoo](https://github.com/garethm/cuckoo) (ruby)
+
+</markdeep></section><section><markdeep>
+## Resources: Searches
+
+* [Binary search](http://www.programming-algorithms.net/article/40119/Binary-search)
+* [Linear search](http://www.programming-algorithms.net/article/40168/Linear-search)
+* [Prune and search](http://www.programming-algorithms.net/article/41235/Prune-and-search)
+
+</markdeep></section><section><markdeep>
+## Resources: Galloping Search
+- [Beating the binary search algorithm – interpolation search, galloping search](http://blog.teamleadnet.com/2014/06/beating-binary-search-algorithm.html)
+- [AN ALMOST OPTIMAL ALGORTTHM FOR UNBOUNDED SEARCHING](http://www.slac.stanford.edu/cgi-wrap/getdoc/slac-pub-1679.pdf)
+
+</markdeep></section><section><markdeep>
+## Resources: Interpolation
+
+- [Interpolation search](http://www.programming-algorithms.net/article/40348/Interpolation-search)
+
+</markdeep></section><section><markdeep>
+## Resources: Peacock Hashes
+
+- [Approximately-Perfect Hashing: Improving Network Throughput through Efficient Off-chip Routing Table Lookup](http://www.cise.ufl.edu/~zhuang/doc/infocom11.pdf)
+- [Peacock Hashing: Deterministic and Updatable Hashing for High Performance Networking](http://www.arl.wustl.edu/~sailesh/papers/Peacoc%20Hash%20v2.doc)
+
+</markdeep></section><section><markdeep>
+## Resources: Sets
+- [A Fast Set Intersection Algorithm for Sorted Sequences](http://www.cs.ucr.edu/~stelo/cpm/cpm04/25_Baeza-yates.pdf)
+- [Experimental Analysis of a Fast Intersection Algorithm for Sorted Sequences](https://cs.uwaterloo.ca/~ajsaling/papers/paper-spire.pdf)
+- [Experimental Comparison of Set Intersection Algorithms for Inverted Indexing](http://ceur-ws.org/Vol-1003/58.pdf)
+- [Fast Set Intersection in Memory](http://research.microsoft.com/pubs/142850/p255-dingkoenig.pdf)
+- [Faster Adaptive Set Intersections for Text Searching](http://www.cs.toronto.edu/~tl/papers/wea06.pdf)
+- [Faster Set Intersection with SIMD instructions by Reducing Branch Mispredictions](http://www.vldb.org/pvldb/vol8/p293-inoue.pdf)
+- [SIMD Compression and the Intersection of Sorted Integers](http://arxiv.org/abs/1401.6399)
+
+</markdeep></section><section><markdeep>
+## Resources: Cheminformatics
+
+* [The PubChem Project](https://pubchem.ncbi.nlm.nih.gov/)
+* [SDF Toolkit](http://cactus.nci.nih.gov/SDF_toolkit/) (perl)
+* [Chemistry Development Kit](http://sourceforge.net/projects/cdk/) (java)
+* [Simplified molecular-input line-entry system (SMILES)](https://en.wikipedia.org/wiki/Simplified_molecular-input_line-entry_system)
+
+</markdeep></section><section><markdeep>
+## Resources: Raspberry Pi
+
+* [http://raspberrypi.org](http://raspberrypi.org)
+* [http://blog.hypriot.org](http://blog.hypriot.org)
+* [http://matthewkwilliams.com](http://matthewkwilliams.com)
+
+</markdeep></section><section><markdeep>
+# Thank You
+</markdeep>
+</section>
+			</div>
+
+		</div>
+    <script>
+      window.markdeepOptions = {mode: 'html'};
+    </script>
+    <script src="js/markdeep.min.js"></script>
+    <script src="js/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<style>
+h1::before {content: "";}
+h2::before {content: "";}
+h3::before {content: "";}
+h4::before {content: "";}
+h5::before {content: "";}
+h6::before {content: "";}
+</style>
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+			        width: 960,
+			        height: 700,
+			        margin: .1,
+			        
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
